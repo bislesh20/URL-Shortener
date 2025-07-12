@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        font-family: "sans-serif";
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+  </head>
+  <body>
+    <h1>Url Shortener</h1>
+    <% if (locals.id) { %>
+    <p>URL Generated: http://localhost:8001/<%= id %></p>
+    <% } %>
+    <div>
+      <form method="POST" action="/url">
+        <label>Enter Your orginial Url</label>
+        <input type="text" name="url" placeholder="https://example.com" />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <div></div>
+  </body>
+</html>

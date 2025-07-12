@@ -11,13 +11,19 @@ async function handleNewUrl(req, res) {
     redirectURL: body.url,
     visitHistory: [],
   });
-  return res.json({ id: shortID });
+  return res.render("home", { id: shortID });
 }
 
 async function handleGetRedirectURLs(req, res) {
-  const shortId = req.params.shortID;
-  const entry = URL.findOne({ shortId });
-  entry.visitedHistory.push({ timestamp: Date.now() });
+  const shortId = req.params.shortId;
+  const entry = await URL.findOne({ shortId });
+  if (!entry) {
+    return res.status(404).send("url not found");
+  }
+  entry.visitHistory.push({ timestamp: Date.now() });
+  await entry.save();
+
+  res.redirect(entry.redirectURL);
 }
 
 module.exports = {
