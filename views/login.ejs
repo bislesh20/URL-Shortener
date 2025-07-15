@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+  </head>
+  <body>
+    <form action="/user/login" method="post">
+      <label>Enter your Email</label>
+      <input type="email" required name="email" placeholder="Enter email" />
+      <label>Enter password</label>
+      <input
+        type="password"
+        required
+        name="password"
+        placeholder="Enter password"
+      />
+      <button type="submit">Click</button>
+      <% if (typeof alert !== 'undefined' && alert) { %>
+      <div class="alert"><%= alert %></div>
+      <% } %>
+    </form>
+  </body>
+</html>

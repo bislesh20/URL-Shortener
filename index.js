@@ -6,6 +6,10 @@ const URL = require("./models/url");
 const { connectToMongoDB } = require("./connection/url");
 const { handleGetRedirectURLs } = require("./controllers/url");
 const staticRoute = require("./routes/staticRoutes");
+const userRoute = require("./routes/user");
+const cookieParser = require("cookie-parser");
+const { restrictToLoggedInUserOnly } = require("./middlewares/auth");
+
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 
@@ -22,8 +26,10 @@ app.set("views", path.resolve("./views"));
 // });
 
 app.use(express.json());
-app.use("/url", urlRoute);
+app.use(cookieParser());
+app.use("/url", restrictToLoggedInUserOnly, urlRoute);
 app.use("/", staticRoute);
+app.use("/user", userRoute);
 app.get("/:shortId", handleGetRedirectURLs);
 
 app.listen(PORT, () => {
